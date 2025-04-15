@@ -7,31 +7,34 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "cart_items")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CartItem {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long cartItemId;
-	
-	@ManyToOne
-	@JoinColumn(name = "cart_id")
-	private Cart cart;
-	
-	@ManyToOne
-	@JoinColumn(name = "product_id")
-	private Product product;
-	
-	private Integer quantity;
-	private double discount;
-	private double productPrice;
-	
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long cartItemId;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    Cart cart;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    Product product;
+
+    Integer quantity;
+    double discount;
+    double productPrice;
+
 }

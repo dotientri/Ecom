@@ -15,44 +15,47 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "products")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long productId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long productId;
 
-	@NotBlank
-	@Size(min = 3, message = "Product name must contain atleast 3 characters")
-	private String productName;
-	
-	private String image;
-	
-	@NotBlank
-	@Size(min = 6, message = "Product description must contain atleast 6 characters")
-	private String description;
-	
-	private Integer quantity;
-	private double price;
-	private double discount;
-	private double specialPrice;
+    @NotBlank
+    @Size(min = 3, message = "Product name must contain atleast 3 characters")
+    String productName;
 
-	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private Category category;
-	
-	@OneToMany(mappedBy = "product", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
-	private List<CartItem> products = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "product", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	private List<OrderItem> orderItems = new ArrayList<>();
+    String image;
+
+    @NotBlank
+    @Size(min = 6, message = "Product description must contain atleast 6 characters")
+    String description;
+
+    Integer quantity;
+    double price;
+    double discount;
+    double specialPrice;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    Category category;
+
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    List<CartItem> products = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    List<OrderItem> orderItems = new ArrayList<>();
 
 }

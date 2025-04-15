@@ -2,6 +2,9 @@ package com.app.services;
 
 import java.util.Optional;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,15 +17,15 @@ import com.app.exceptions.ResourceNotFoundException;
 import com.app.repositories.UserRepo;
 
 @Service
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserDetailsServiceImpl implements UserDetailsService {
+    UserRepo userRepo;
 
-	@Autowired
-	private UserRepo userRepo;
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> user = userRepo.findByEmail(username);
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<User> user = userRepo.findByEmail(username);
-		
-		return user.map(UserInfoConfig::new).orElseThrow(() -> new ResourceNotFoundException("User", "email", username));
-	}
+        return user.map(UserInfoConfig::new).orElseThrow(() -> new ResourceNotFoundException("User", "email", username));
+    }
 }

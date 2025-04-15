@@ -12,27 +12,30 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Data
 @Table(name = "carts")
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Cart {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long cartId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long cartId;
 
-	@OneToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    User user;
 
-	@OneToMany(mappedBy = "cart", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
-	private List<CartItem> cartItems = new ArrayList<>();
+    @OneToMany(mappedBy = "cart", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    List<CartItem> cartItems = new ArrayList<>();
 
-	private Double totalPrice = 0.0;
+    Double totalPrice = 0.0;
 }

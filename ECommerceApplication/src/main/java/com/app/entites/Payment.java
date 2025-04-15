@@ -9,26 +9,29 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Data
 @Table(name = "payments")
 @AllArgsConstructor
 @NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Payment {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long paymentId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long paymentId;
 
-	@OneToOne(mappedBy = "payment", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	private Order order;
+    @OneToOne(mappedBy = "payment", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    Order order;
 
-	@NotBlank
-	@Size(min = 4, message = "Payment method must contain atleast 4 characters")
-	private String paymentMethod;
+    @NotBlank
+    @Size(min = 4, message = "Payment method must contain atleast 4 characters")
+    String paymentMethod;
 
 }

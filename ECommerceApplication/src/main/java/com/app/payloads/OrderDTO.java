@@ -4,21 +4,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderDTO {
-	
-	private Long orderId;
-	private String email;
-	private List<OrderItemDTO> orderItems = new ArrayList<>();
-	private LocalDate orderDate;
-	private PaymentDTO payment;
-	private Double totalAmount;
-	private String orderStatus;
-
+    Long orderId;
+    String email;
+    List<OrderItemDTO> orderItems = new ArrayList<>();
+    LocalDate orderDate;
+    PaymentDTO payment;
+    Double totalAmount;
+    String orderStatus;
 }

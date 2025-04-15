@@ -1,17 +1,19 @@
 package com.app.payloads;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderItemDTO {
-
-	private Long orderItemId;
-	private ProductDTO product;
-	private Integer quantity;
-	private double discount;
-	private double orderedProductPrice;
+	 Long orderItemId;
+	 ProductDTO product;
+	 Integer quantity;
+	 double discount;
+	 double orderedProductPrice;
 }

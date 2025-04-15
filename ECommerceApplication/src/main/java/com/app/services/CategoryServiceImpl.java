@@ -3,6 +3,9 @@ package com.app.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,16 +26,12 @@ import jakarta.transaction.Transactional;
 
 @Transactional
 @Service
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CategoryServiceImpl implements CategoryService {
-
-	@Autowired
-	private CategoryRepo categoryRepo;
-	
-	@Autowired
-	private ProductService productService;
-
-	@Autowired
-	private ModelMapper modelMapper;
+	 CategoryRepo categoryRepo;
+	 ProductService productService;
+	 ModelMapper modelMapper;
 
 	@Override
 	public CategoryDTO createCategory(Category category) {

@@ -15,34 +15,37 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "orders")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Order {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long orderId;
-	
-	@Email
-	@Column(nullable = false)
-	private String email;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long orderId;
 
-	@OneToMany(mappedBy = "order", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	private List<OrderItem> orderItems = new ArrayList<>();
+    @Email
+    @Column(nullable = false)
+    String email;
 
-	private LocalDate orderDate;
-	
-	@OneToOne
-	@JoinColumn(name = "payment_id")
-	private Payment payment;
-	
-	private Double totalAmount;
-	private String orderStatus;
+    @OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    List<OrderItem> orderItems = new ArrayList<>();
+
+    LocalDate orderDate;
+
+    @OneToOne
+    @JoinColumn(name = "payment_id")
+    Payment payment;
+
+    Double totalAmount;
+    String orderStatus;
 }

@@ -1,9 +1,12 @@
 package com.app.payloads;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class JWTAuthRequest {
-	private String username;  // email
-	private String password;
+    String username;  // email
+    String password;
 }

@@ -2,20 +2,21 @@ package com.app.payloads;
 
 import java.util.List;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderResponse {
-
-	private List<OrderDTO> content;
-	private Integer pageNumber;
-	private Integer pageSize;
-	private Long totalElements;
-	private Integer totalPages;
-	private boolean lastPage;
-	
+	 List<OrderDTO> content;
+	 Integer pageNumber;
+	 Integer pageSize;
+	 Long totalElements;
+	 Integer totalPages;
+	 boolean lastPage;
 }

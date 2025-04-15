@@ -3,6 +3,9 @@ package com.app.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -34,25 +37,15 @@ import jakarta.transaction.Transactional;
 
 @Transactional
 @Service
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserServiceImpl implements UserService {
-
-	@Autowired
-	private UserRepo userRepo;
-
-	@Autowired
-	private RoleRepo roleRepo;
-
-	@Autowired
-	private AddressRepo addressRepo;
-
-	@Autowired
-	private CartService cartService;
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	@Autowired
-	private ModelMapper modelMapper;
+	 UserRepo userRepo;
+	 RoleRepo roleRepo;
+	 AddressRepo addressRepo;
+	 CartService cartService;
+	 PasswordEncoder passwordEncoder;
+	 ModelMapper modelMapper;
 
 	@Override
 	public UserDTO registerUser(UserDTO userDTO) {
@@ -105,9 +98,9 @@ public class UserServiceImpl implements UserService {
 				: Sort.by(sortBy).descending();
 
 		Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
-		
+
 		Page<User> pageUsers = userRepo.findAll(pageDetails);
-		
+
 		List<User> users = pageUsers.getContent();
 
 		if (users.size() == 0) {
@@ -135,14 +128,14 @@ public class UserServiceImpl implements UserService {
 		}).collect(Collectors.toList());
 
 		UserResponse userResponse = new UserResponse();
-		
+
 		userResponse.setContent(userDTOs);
 		userResponse.setPageNumber(pageUsers.getNumber());
 		userResponse.setPageSize(pageUsers.getSize());
 		userResponse.setTotalElements(pageUsers.getTotalElements());
 		userResponse.setTotalPages(pageUsers.getTotalPages());
 		userResponse.setLastPage(pageUsers.isLast());
-		
+
 		return userResponse;
 	}
 

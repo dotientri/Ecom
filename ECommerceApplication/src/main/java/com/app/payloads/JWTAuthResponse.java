@@ -1,10 +1,12 @@
 package com.app.payloads;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class JWTAuthResponse {
-	private String token;
-	
-	private UserDTO user;
+    String token;
+    UserDTO user;
 }

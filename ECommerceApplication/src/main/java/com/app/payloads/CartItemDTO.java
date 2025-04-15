@@ -1,18 +1,20 @@
 package com.app.payloads;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CartItemDTO {
-	
-	private Long cartItemId;
-	private CartDTO cart;
-	private ProductDTO product;
-	private Integer quantity;
-	private double discount;
-	private double productPrice;
+    Long cartItemId;
+    CartDTO cart;
+    ProductDTO product;
+    Integer quantity;
+    double discount;
+    double productPrice;
 }
